@@ -1,0 +1,304 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'katex/dist/katex.min.css';
+
+/* KaTeX 수식 크기 조정 */
+.katex {
+  font-size: 1.4em !important;
+}
+
+.katex-display {
+  font-size: 1.5em !important;
+  margin-top: 2rem !important; /* my-3 */
+  margin-bottom: 2rem !important; /* my-3 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  /* Code block customization variables */
+  --code-bg: #0d1117; /* GitHub dark background */
+  --code-border: rgba(255, 255, 255, 0.1);
+  --code-text: #c9d1d9; /* Default text color */
+  --code-copy-button-bg: rgba(255, 255, 255, 0.1);
+  --code-copy-button-border: rgba(255, 255, 255, 0.2);
+  --code-copy-button-text: #8b949e;
+  --code-copy-button-hover-bg: rgba(255, 255, 255, 0.15);
+  --code-copy-button-hover-text: #c9d1d9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-medium;
+  }
+}
+
+/* Code highlighting styles for rehype-pretty-code */
+/* Use shiki dark theme (github-dark) */
+/* Customizable via CSS variables */
+.prose pre {
+  @apply overflow-x-auto rounded-none border p-4;
+  position: relative;
+  /* Use CSS variable for background - can be overridden externally */
+  background: var(--code-bg, inherit);
+  border-color: var(--code-border, rgba(255, 255, 255, 0.1));
+}
+
+/* Copy button styles - customizable via CSS variables */
+.prose pre button[data-copy] {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem;
+  background: var(--code-copy-button-bg, rgba(255, 255, 255, 0.1));
+  border: 1px solid var(--code-copy-button-border, rgba(255, 255, 255, 0.2));
+  border-radius: 0.25rem;
+  color: var(--code-copy-button-text, #8b949e);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.2s,
+    background 0.2s,
+    color 0.2s;
+  z-index: 10;
+}
+
+.prose pre:hover button[data-copy] {
+  opacity: 1;
+}
+
+.prose pre button[data-copy]:hover {
+  background: var(--code-copy-button-hover-bg, rgba(255, 255, 255, 0.15));
+  color: var(--code-copy-button-hover-text, #c9d1d9);
+}
+
+/* Apply shiki colors - shiki generates inline styles with colors */
+.prose pre code {
+  background: transparent !important;
+  /* Use CSS variable for default text color - can be overridden externally */
+  color: var(--code-text, inherit);
+}
+
+/* Shiki generates inline styles with color property */
+/* These inline styles have higher specificity, so they'll work automatically */
+.prose pre code span {
+  font-family: var(--font-mono);
+  /* Inline styles from shiki will have the correct colors */
+  /* Don't override - let shiki's inline styles work */
+}
+
+/* Ensure all code elements respect shiki's inline styles */
+.prose pre code * {
+  /* Let shiki's inline styles work */
+  color: inherit;
+}
+
+/* Blog article prose styles - responsive typography */
+.prose {
+  @apply max-w-none;
+  color: var(--foreground);
+}
+
+/* Headings - responsive sizes */
+.prose h1 {
+  @apply mt-8 mb-4 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl;
+  color: var(--foreground);
+  line-height: 1.2;
+}
+
+.prose h2 {
+  @apply mt-16 mb-3 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl;
+  color: var(--foreground);
+  line-height: 1.2;
+}
+
+.prose h3 {
+  @apply mt-8 mb-2 text-lg font-semibold tracking-tight sm:text-xl md:text-2xl;
+  color: var(--foreground);
+  line-height: 1.4;
+}
+
+.prose h4 {
+  @apply mt-4 mb-2 text-base font-semibold tracking-tight sm:text-lg md:text-xl;
+  color: var(--foreground);
+  line-height: 1.4;
+}
+
+/* Heading anchor links - when header is wrapped in link */
+.prose a.heading-link {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.prose a.heading-link h1,
+.prose a.heading-link h2,
+.prose a.heading-link h3,
+.prose a.heading-link h4,
+.prose a.heading-link h5,
+.prose a.heading-link h6 {
+  color: inherit;
+  margin: 0;
+}
+
+/* Paragraphs - responsive sizes */
+.prose p {
+  @apply mb-4 mt-2 text-sm leading-7 font-medium sm:text-base md:text-base;
+  color: var(--foreground);
+}
+
+/* Lists - responsive sizes */
+.prose ul,
+.prose ol {
+  @apply mb-4 pl-6 text-sm font-medium sm:text-base md:text-base;
+  color: var(--foreground);
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply mb-2 leading-7 font-medium;
+  color: var(--foreground);
+}
+
+.prose li p {
+  @apply mb-2;
+}
+
+.prose li ul,
+.prose li ol {
+  @apply mt-2 mb-0;
+}
+
+/* Images - responsive sizes */
+.prose img {
+  @apply my-6 h-auto w-full rounded-lg;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Links */
+.prose a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-4 transition-colors;
+}
+
+/* Blockquotes */
+.prose blockquote {
+  @apply border-muted-foreground/30 my-4 border-l-4 pl-4 font-medium italic;
+  color: var(--muted-foreground);
+}
+
+/* Inline code - code that is NOT inside pre */
+.prose code:not(pre code) {
+  @apply rounded px-1.5 py-0.5 font-mono bg-gray-200 text-red-700;
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Code blocks - pre and code inside pre */
+.prose pre {
+  @apply text-sm sm:text-sm md:text-base;
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+.prose pre code {
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: 1.6;
+  display: block;
+  width: 100%;
+}
+
+.prose pre code span {
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+/* Tables */
+.prose table {
+  @apply my-4 w-full border-collapse;
+}
+
+.prose th {
+  @apply border-border border px-4 py-2 text-left font-semibold;
+  color: var(--foreground);
+}
+
+.prose td {
+  @apply border-border border px-4 py-2 font-medium;
+  color: var(--muted-foreground);
+}
+
+/* Horizontal rules */
+.prose hr {
+  @apply border-border my-8;
+}
+
+/* Strong and emphasis */
+.prose strong {
+  @apply font-bold;
+  color: var(--foreground);
+}
+
+.prose em {
+  @apply italic;
+}

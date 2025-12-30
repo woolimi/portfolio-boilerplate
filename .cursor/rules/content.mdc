@@ -1,0 +1,85 @@
+---
+globs: content/**/*.{md,ipynb},projects/**/*.{md,ipynb}
+alwaysApply: false
+---
+
+마크다운 및 Jupyter Notebook 콘텐츠 파일은 다음 규칙을 준수합니다:
+
+## 1. Content 디렉토리 프론트매터 (블로그 포스트)
+
+`content/` 디렉토리의 마크다운 파일은 다음 프론트매터 필드를 사용합니다:
+
+### 예시:
+```yaml
+---
+title: Arduino 기본 지식
+summary: 아두이노 입문자를 위한 기본 지식 정리
+image: /images/arduino.jpg (선택사항)
+---
+```
+
+## 2. Projects 디렉토리 프론트매터 (프로젝트 문서)
+
+`projects/` 디렉토리의 마크다운 파일은 다음 프론트매터 필드를 사용합니다:
+
+### 필수 필드:
+- `title` (string): 프로젝트 제목
+- `summary` (string): 프로젝트 요약 (한 줄 설명)
+
+### 선택 필드:
+- `github` (string): GitHub 저장소 URL
+- `website` (string): 프로젝트 웹사이트 URL
+- `image` (string): 프로젝트 대표 이미지 URL
+- `skills` (string | string[]): 사용 기술 스택. 쉼표로 구분된 문자열 또는 배열 형식
+
+### 카테고리별 필드:
+- **schools 카테고리**: `school` 필드 사용
+- **professionals 카테고리**: `work` 필드 사용
+- **personals 카테고리**: `school`, `work` 필드 사용 안 함
+
+### 예시:
+
+**personals 카테고리:**
+```yaml
+---
+title: '[프로젝트 제목을 입력하세요]'
+summary: '[프로젝트 요약을 한 줄로 입력하세요]'
+github: '[GitHub 저장소 URL]'
+website: '[프로젝트 웹사이트 URL]'
+image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop'
+skills: '[사용 기술 스택, 쉼표로 구분]'
+---
+```
+
+**schools 카테고리:**
+```yaml
+---
+title: '[프로젝트 제목을 입력하세요]'
+summary: '[프로젝트 요약을 한 줄로 입력하세요]'
+school: '[학교 식별자]'
+github: '[GitHub 저장소 URL]'
+image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop'
+skills: '[사용 기술 스택, 쉼표로 구분]'
+---
+```
+
+**professionals 카테고리:**
+```yaml
+---
+title: '[프로젝트 제목을 입력하세요]'
+summary: '[프로젝트 요약을 한 줄로 입력하세요]'
+work: '[회사 식별자]'
+image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop'
+skills: '[사용 기술 스택, 쉼표로 구분]'
+website: '[프로젝트 웹사이트 URL]'
+github: '[GitHub 저장소 URL]'
+---
+```
+
+## 3. Jupyter Notebook 프론트매터
+
+Jupyter Notebook 파일(`.ipynb`)의 경우, 노트북의 `metadata` 필드에 프론트매터 정보를 저장합니다. 필드는 마크다운 파일과 동일합니다.
+
+## 4. 날짜 자동 추출
+
+`createdAt`과 `updatedAt` 필드가 없으면 Git 히스토리에서 자동으로 추출됩니다. 명시적으로 지정하려면 ISO 8601 형식으로 작성합니다.

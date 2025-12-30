@@ -1,0 +1,4 @@
+{
+  "i18n-ally.localesPaths": ["i18n", "messages"],
+  "prettier.configPath": "prettier.config.mjs"
+}

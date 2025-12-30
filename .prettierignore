@@ -1,0 +1,37 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+build
+dist
+.vercel
+
+# Prismic
+.slicemachine
+
+# Lock files
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment files
+.env
+.env.local
+.env*.local
+
+# Logs
+*.log
+coverage
+
+# OS
+.DS_Store
+
+# Generated files
+src/prismic
+
+.venv
+.vscode
+.cursor
